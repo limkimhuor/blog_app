@@ -1,11 +1,29 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: MyText
-  body: MyText
-  user_id: 1
+orange:
+  title: "Orange Fruit page"
+  body: "I just ate an orange!"
+  created_at: <%= 10.minutes.ago %>
+facebook:
+  title: "Facebook page"
+  body: "Welcome to facebook!"
+  created_at: <%= 10.minutes.ago %>
 
-two:
-  title: MyText
-  body: MyText
-  user_id: 1
+yahoo:
+  title: "Yahoo mail"
+  body: "It's is to old to use this mail"
+  created_at: <%= 3.years.ago %>
+cat_video:
+  title: "Videos"
+  body: "Sad cats are sad: http://youtu.be/PKffm2uI4dk"
+  created_at: <%= 2.hours.ago %>
+youtube_video:
+  title: "Youtue"
+  body: "Sad cats are sad: http://youtu.be/PKffm2uI4dk"
+  created_at: <%= 2.hours.ago %>
+
+
+most_recent:
+  title: "Recent Post"
+  body: "Writing a short test"
+  created_at: <%= Time.zone.now %>

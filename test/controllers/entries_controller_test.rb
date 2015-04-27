@@ -2,7 +2,7 @@ require 'test_helper'
 
 class EntriesControllerTest < ActionController::TestCase
   setup do
-    @entry = entries(:one)
+    @entry = entries(:title, :body, :user_id)
   end
 
   test "should get index" do
@@ -18,7 +18,7 @@ class EntriesControllerTest < ActionController::TestCase
 
   test "should create entry" do
     assert_difference('Entry.count') do
-      post :create, entry: { body: @entry.body, title: @entry.title, user_id: @entry.user_id }
+    post :create, entry: { title: @entry.title, body: @entry.body, user_id: @entry.user_id }
     end
 
     assert_redirected_to entry_path(assigns(:entry))

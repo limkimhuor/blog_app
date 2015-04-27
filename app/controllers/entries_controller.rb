@@ -1,5 +1,8 @@
 class EntriesController < ApplicationController
-  before_action :set_entry, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:create, :destroy]
+  before_action :correct_user,   only: :destroy
+
+  #before_action :set_entry, only: [:show, :edit, :update, :destroy]
 
   # GET /entries
   # GET /entries.json
@@ -24,17 +27,14 @@ class EntriesController < ApplicationController
   # POST /entries
   # POST /entries.json
   def create
-    @entry = Entry.new(entry_params)
-
-    respond_to do |format|
+    @entry = current_user.entries.build(entry_params)
       if @entry.save
-        format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
-        format.json { render :show, status: :created, location: @entry }
+        flash[:success]  = "Entry was successfully created."
+        redirect_to root_url
       else
-        format.html { render :new }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
+        @feed_items = []
+        render 'static_pages/home'
       end
-    end
   end
 
   # PATCH/PUT /entries/1
@@ -55,10 +55,8 @@ class EntriesController < ApplicationController
   # DELETE /entries/1.json
   def destroy
     @entry.destroy
-    respond_to do |format|
-      format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:succes] = "Entry deleted"
+    redirect_to request.referrer || root_url
   end
 
   private
@@ -70,5 +68,10 @@ class EntriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_params
       params.require(:entry).permit(:title, :body, :user_id)
+    end
+
+    def correct_user
+      @entry = current_user.entries.find_by(id: params[:id])
+      redirect_to root_url if @entry.nil?
     end
 end

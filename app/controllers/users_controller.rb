@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @user = User.find(params[:id])
+    @entries = @user.entries.paginate(page: params[:page])
   end
 
   # GET /users/new
@@ -31,8 +32,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      @user.send_activation_email
-      flash[:info] = "Please check your email to activate your account."
+      login_in @user
+      flash[:success] = "Welcome to App!."
       redirect_to root_url
     else
       render 'new'
