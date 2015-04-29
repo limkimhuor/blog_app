@@ -13,6 +13,9 @@ class EntriesController < ApplicationController
   # GET /entries/1
   # GET /entries/1.json
   def show
+    @entry = Entry.find(params[:id])
+    @comment = Comment.new
+    @comments = @entry.comments.paginate(page: params[:page])
   end
 
   # GET /entries/new

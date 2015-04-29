@@ -1,19 +1,24 @@
-<p id="notice"><%= notice %></p>
+ <% provide(:title, @entry.title) %>
+  <div class="row">
+ 	<aside class="col-md-4">
+ 	<section class="user_info">
+      <h1>
+        <%= gravatar_for @entry.user %>
+        <%= @entry.user.name %>
+      </h1>
+    </section>
+      <%= render 'shared/comment_form' %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @entry.title %>
-</p>
-
-<p>
-  <strong>Body:</strong>
-  <%= @entry.body %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @entry.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_entry_path(@entry) %> |
-<%= link_to 'Back', entries_path %>
+    </aside>
+  <div class="col-md-8">
+    
+      <h3>Comments (<%= @entry.comments.count %>)</h3>
+      <% if @entry.comments.any? %>
+      <%= will_paginate @comments %>
+      <ol class="comments">
+        <%= render @entry.comments %>
+      </ol>
+      <%= will_paginate @comments %>
+      <% end %>
+  </div>
+</div>
