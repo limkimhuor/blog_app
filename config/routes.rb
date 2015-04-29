@@ -19,14 +19,11 @@ Rails.application.routes.draw do
     end
   end
   resources :password_resets,     only: [:new, :create, :edit, :update]
-<<<<<<< HEAD
   resources :entries,          only: [:create, :destroy]
   resources :relationships,       only: [:create, :destroy]
-=======
   resources :entries
   resources :relationships,       only: [:create, :destroy]
   resources :comments
->>>>>>> user-comments
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
